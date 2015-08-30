@@ -250,7 +250,7 @@ function dropFunc(event){
     }
     else if(dragObject==1){
         //判斷各種不能drop的狀況
-        if(x<$('#color1').offset().left)
+        if(x<$('#choosedColor').offset().left)
             dropOrNot=false;
         else if(dragNum==choosedColorNum && x>$('#color'+choosedColorNum).offset().left)
             dropOrNot=false;

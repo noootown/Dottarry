@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width , initial-scale=1.0" charset="UTF-8">
+        <title>DottyCard</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <link rel="stylesheet" href="css/styles.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <!--slideBar-->
+        <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    </head>
+    <body style="background-color:#E0E0E0">
+        <nav class="navbar navbar-default navbar-static-top" id="mainNavBar">
+            <div class="container">
+                <div class="collapse navbar-collapse navHeaderCollapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="index.html">DottyCard</a></li>
+                        <li class="active"> <a href="">製作 DottyCard</a></li>
+                        <li> <a href="example.html">精選範例</a></li>
+                    </ul>
+                    <a class="navbar-brand navbar-right" href="https://github.com/i314i">
+                        <img class="icon" src="img/github.png" alt="My github">
+                    </a>
+                    <a class="navbar-brand navbar-right" href="https://noootown.wordpress.com/">
+                        <img class="icon" src="img/wordpress.png" alt="沒一村生活點滴">
+                    </a>
+                </div>
+            </div>
+        </nav>
+        <!--用來感應是否掉主navbar-->
+        <nav class="navbar navbar-default navbar-static-top" id="subNavBar">
+            <img class="subNavIcon" src="img/slidedownicon.png">
+        </nav>
+
+        <canvas id="downloadCanvas"></canvas>
+        <div class="main">
+            <div class=dotCanvas>
+                <div class="container">
+                    <div class="panel cardDisplay">
+                        <canvas id="myCanvas"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="dotSetting">
+                <div class="container">
+                    <div class="col-lg-3">
+                        <div class="panel">
+                            <h5>words</h5>
+                            <div class="input-group"><input class="form-control" id="dotWords" type="text" value=""></div>
+                        </div>
+                        <div class="panel">
+                            <h5>edit & tool</h5>
+                            <h6 class="editBtn" id="edit1">reset</h6>
+                            <h6 class="editBtn" id="edit2">recover</h6>
+                            <h6 class="editBtn" id="edit3">redo</h6>
+                            <h6 class="editBtn" id="edit4">download</h6>
+                            <h6 class="editBtn" id="edit5">help</h6>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="panel">
+                            <div class=eraserDiv id='eraserSettingDiv'>
+                                <h5 id="eraserSliderValue">paint erase</h5>
+                                <h6 class="eraserCheck">paint!!!</h6>
+                                <div class="slideBar" id="eraser-slider"></div>
+                            </div >
+                            <div class="eraserDiv" id="eraserCanvasDiv">
+                                <canvas id="eraserCanvas"></canvas>
+                            </div>
+                        </div>
+                        <div class="panel">
+                            <h5>shape</h5>
+                            <span class="btn-group">
+                                <h6 class="shapeBtn" id="shape1">circle</h6>
+                                <h6 class="shapeBtn" id="shape2">heart</h6>
+                                <h6 class="shapeBtn" id="shape3">square</h6>
+                                <h6 class="shapeBtn" id="shape4">star</h6>
+                                <h6 class="shapeBtn" id="shape5">triangle</h6>
+                                <h6 class="shapeBtn" id="shape6">ring</h6>
+                            </span>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="panel">
+                            <h5>colors</h5>
+                            <div class="colorPicker" id="choosedColor">
+
+                            </div>
+                            <hr id="hr-color">
+                            <div class="colorPicker colorList">
+                                <span class="color" title="red" style="background-color: rgb(255,0,0)"></span><span class="color" title="orange" style="background-color: rgb(255,128,0)"></span><span class="color" title="yellow" style="background-color: rgb(255,255,0)"></span><span class="color" title="lawn green" style="background-color: rgb(128,255,0)"></span><span class="color" title="green" style="background-color: rgb(0,255,0)"></span><span class="color" title="sky blue" style="background-color: rgb(0,128,255)"></span><span class="color" title="blue" style="background-color: rgb(0,0,255)"></span><span class="color" title="purple" style="background-color: rgb(170,0,255)"></span>
+                            </div>
+                            <div class="colorPicker colorList">
+                                <span class="color" title="deep pink" style="background-color: rgb(255,0,128)"></span><span class="color" title="orange red" style="background-color: rgb(255,69,0)"></span><span class="color" title="gold" style="background-color: rgb(255,222,0)"></span><span class="color" title="lime green" style="background-color: rgb(0,202,61)"></span><span class="color" title="azure" style="background-color: rgb(127,255,212)"></span><span class="color" title="cyan" style="background-color: rgb(0,255,255)"></span><span class="color" title="royal blue" style="background-color: rgb(65,105,225)"></span><span class="color" title="violet" style="background-color: rgb(128,0,255)"></span>
+                            </div>
+                            <div class="colorPicker colorList">
+                                <span class="color" title="pink" style="background-color: rgb(255,0,255)"></span><span class="color" title="filebrick" style="background-color: rgb(201,23,30)"></span><span class="color" title="yellow green" style="background-color: rgb(177,205,0)"></span><span class="color" title="forest green" style="background-color: rgb(34,139,34)"></span><span class="color" title="turquoise" style="background-color: rgb(4,192,192)"></span><span class="color" title="navy" style="background-color: rgb(0,0,128)"></span><span class="color" title="deep gray" style="background-color: rgb(150,150,150)"></span><span class="color" title="dim gray" style="background-color: rgb(100,100,100)"></span>
+                            </div>
+                            <div class="colorPicker colorList">
+                                <span class="color" title="blood" style="background-color: rgb(128,0,0)"></span><span class="color" title="brown" style="background-color: rgb(132,57,0)"></span><span class="color" title="goldenrod" style="background-color: rgb(200,132,0)"></span><span class="color" title="kahki" style="background-color: rgb(240,230,140)"></span><span class="color" title="antique white" style="background-color: rgb(255,239,219)"></span><span class="color" title="white" style="background-color: rgb(255,255,255)"></span><span class="color" title="gray" style="background-color: rgb(200,200,200)"></span><span class="color" title="black" style="background-color: rgb(0,0,0)"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="panel">
+                            <h5 id="textSliderValue">word size</h5>
+                            <div class="slideBar" id="text-slider"></div>
+                        </div>
+                        <div class="panel">
+                            <h5 id="dotSliderValue">dot size</h5>
+                            <div class="slideBar" id="dot-slider"></div>
+                        </div>
+                        <div class="panel">
+                            <h5 id="canvasSliderValue">picture size</h5>
+                            <div class="slideBar" id="canvas-slider"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="myAlertDialog"></div>
+        <div id="myDownloadDialog"></div>
+        <div id="myResetDialog"></div>
+    </body>
+</html>
+<script src="js/bubbles.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/makecard.js"></script>
+<script src="js/alphabet.js"></script>

@@ -1,6 +1,7 @@
 html,body{
 height:100%;
 font-family:Ubuntu,Varela Round,Verdana ,Droid Sans,Helvetica ,sans-serif;
+overflow-x:hidden;
 }
 a{
 
@@ -478,7 +479,7 @@ height: 100%;
 
 position: absolute;
 right: 0px;
-bottom: 5px;
+bottom: 10px;
 color: #666666;
 font-size: 8px;
 line-height: 8px;
@@ -695,7 +696,7 @@ height: auto;
 }
 .unitsection.section5 {
 
-height: 600px;
+height: 80%;
 background-size: 90%;
 }
 .unitsection.section4 {
@@ -1064,11 +1065,10 @@ height: 125%;
 .unitsection.section4 {
 
 height: 60%;
-padding:30% 20px;
+padding:35% 20px;
 }
 
 .unitsection.section5{
-height:100%;
 }
 .unitsection.section7 {
 

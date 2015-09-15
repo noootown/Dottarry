@@ -14,6 +14,9 @@ var imgDataStack=[];//上一步的stack
 var redoImgDataStack=[];//下一步的stack
 var clearImgData;//空背景圖
 var panelWidth;//panel的寬
+
+var mobileOrNot;
+$(window).width()<1200 ? mobileOrNot=true:mobileOrNot=false;
 $(window).mouseleave(function(){
     reset=true; 
 });
@@ -35,9 +38,18 @@ function eraser(){//eraser物件
     this.color='rgb(0,0,0)';
     this.radius=ERASER_SLIDER_VALUE;
     this.eraserShape=1;
-    this.mousePos=new Vector(ERASER_SLIDER_MAX,canvasHeight-ERASER_SLIDER_MAX);
+    this.mousePos;
+    if(!mobileOrNot)
+        this.mousePos=new Vector(ERASER_SLIDER_MAX,canvasHeight-ERASER_SLIDER_MAX);
+    else
+        this.mousePos=new Vector(-100,-100);
+
     this.draw=function(){
-        if(eraseOrNot){
+        if($(window).width()<1200){
+            if(clickOrNot)
+                drawShape(canvas,this.eraserShape,this.mousePos.x,this.mousePos.y,this.radius*2,this.color);
+        }
+        else if(eraseOrNot){
             drawShape(canvas,this.eraserShape,this.mousePos.x,this.mousePos.y,this.radius*2,this.color);
         }
     };
@@ -137,12 +149,22 @@ function bubblePop(){
 
 function updateCanvas(){
     panelWidth=$('.cardDisplay').width();
+    //var hei="innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
+    var hei=$(window).height();
+    hei=hei-$('.dotSetting').height()-20;
+    if(hei<250)
+        hei=250;
+    else if(hei>330)
+        hei=330;
     canvas.attr({
-        height:250,
+        height:hei,
         width:panelWidth
     });
     canvasWidth=canvas.width();
     canvasHeight=canvas.height();
+    //downloadCanvasWidth=canvasWidth+2;
+    //CANVAS_SLIDER_MAX=canvasWidth+CANVAS_SLIDER_STEP;//設定canvas slider
+    //CANVAS_SLIDER_VALUE=CANVAS_SLIDER_MAX;
 }
 
 canvas.mousedown(function(e){
@@ -154,13 +176,32 @@ canvas.mousedown(function(e){
         }
     }
 });
+canvas.on('touchstart',function(e){
+    console.log('haha');
+    if(eraseOrNot){
+        clickOrNot=true;
+        TIME_INTERVAL=1;//每1ms call一次bubblePop
+        if(redoImgDataStack.length!=0){//如果下一步的stack不是空的︳就清除之
+            redoImgDataStack=[];
+        }
+    }
 
+});
 canvas.mouseup(function(e){
+    console.log('haha');
     if(eraseOrNot){
         clickOrNot=false;
         TIME_INTERVAL=30;//換回來30ms
         imgDataStack.push(imgData);//把imgdata push到上一步的stack中。
     }
+});
+canvas.on('touchend',function(){
+    if(eraseOrNot){
+        clickOrNot=false;
+        TIME_INTERVAL=30;//換回來30ms
+        imgDataStack.push(imgData);//把imgdata push到上一步的stack中。
+    }
+
 });
 //防步使用者畫一畫，滑鼠滑到canvas外放開
 $(window).mouseup(function(e){
@@ -174,6 +215,12 @@ canvas.mousemove(function(e){
     //calculate the mouse position, and store it to pointCollection's mouse
     myEraser.mousePos.setVector(e.pageX-canvas.offset().left,e.pageY-canvas.offset().top);
 });
+
+document.getElementById('myCanvas').addEventListener('touchmove',function(event){
+    event.preventDefault();
+    myEraser.mousePos.setVector(event.targetTouches[0].pageX-canvas.offset().left,event.targetTouches[0].pageY-canvas.offset().top);
+},false);
+
 function setWordComponent(words,color,bubbleshape,xymultiple,dotmultiple){//set the color and everyting about the dots
     var tmppoints=[];//array that store all dots
     var xoffset=0;//letter x offset

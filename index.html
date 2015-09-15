@@ -2,62 +2,179 @@
 <html lang="en">
     <head>
         <meta name="viewport" content="width=device-width , initial-scale=1.0" charset="UTF-8">
-        <title>DottyCard</title>
-        <link rel="stylesheet" href="css/styles.css">
+        <title>Dottarry</title>
         <link rel="stylesheet" href="css/bootstrap.min.css">
-    </head>
-    <body style="background-color:#E0E0E0">
+        <link rel="stylesheet" href="css/index.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-        <script src="js/bootstrap.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    </head>
+    <body class="mainbody">
+        <div class="nav navbar">
+            <div class="container navbar-container">
+                <div class="navBar">
+                    <nav class="nav-menu navbar-menu" data-as="navmenu">
+                        <a class="nav-link active">Dottarry</a>
+                        <a class="nav-link" href="makecard.html">Make</a>
+                        <a class="nav-link" href="help.html">Help</a>
+                        <a class="nav-link" href="example.html">Example</a>
+                    </nav>
+                    <a class="nav-brand navbar-brand" href="https://noootown.wordpress.com" target="_blank"><img class="navbar-img" width="50" height="50" src="img/wordpress.png">
+                    </a>
+                    <a class="nav-brand navbar-brand" href="https://github.com/i314i" target="_blank"><img class="navbar-img" width="50" height="50" src="img/github.png">
+                    </a>
+                    <img class="navbar-toggle" src="img/slidedownicon.png" height="32" width="32">
+                </div>
+            </div>
+        </div>
 
-        <nav class="navbar navbar-default navbar-static-top">
+        <div class="section unitsection section1-1 section1 turnsection"></div>
+        <div class="section unitsection section1-2 section1 turnsection"></div>
+        <div class="section unitsection section1-3 section1 turnsection"></div>
+        <div class="section unitsection section1-4 section1 turnsection"></div>
+        <div class="section unitsection section1-5 section1 turnsection"></div>
+        <div class="section unitsection section1">
+            <div class="container section1-container">
+                <div class="div-title">
+                    <img class="section1-titleimg section1-img1" src="img/dottarry1.png" >
+                    <img class="section1-titleimg section1-img2" src="img/dottarry2.png" >
+                    <img class="section1-titleimg section1-img3" src="img/dottarry3.png" >
+                    <img class="section1-titleimg section1-img4" src="img/dottarry4.png" >
+                    <img class="section1-titleimg section1-img5" src="img/dottarry5.png" >
+                </div>
+                <div class="section1-description">
+                    <h1 class="description description1" data-as="section1-loadmovedown1">Dot Your Inspiration</h1>
+                    <h1 class="description description2" data-as="section1-loadmovedown2">Let Your Mind Fly</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="section unitsection section2">
+            <div class="container section2-container">
+                <h1 class="titleheading section2-title" data-as="section2-titlescroll">FEATURE</h1>
+                <h1 class="section2-description" data-as="section2-titlescroll2">Create pictures which have words composed of dots.&nbsp;</h1>
+                <div class="row section2-row">
+                    <div class="col-sm-4 section2-column">
+                        <div class="section2-col1" data-as="section2-popout1"><img class="section2-img" width="200" height="200" src="img/mouse.png">
+                            <h1 class="section2-heading">Easy</h1>
+                        </div>
+                        <p class="section2-col-paragraph section2-para1" data-as="section2-popout1">The user interface of Dottarry is quite simple so that you can easily create your own Dottarry within several mouse clicks!&nbsp;</p>
+                    </div>
+                    <div class="col-sm-4 section2-column">
+                        <div class="section2-col2"data-as="section2-popout2"><img class="section2-img" height="200" src="img/lightbulb.png">
+                            <h1 class="section2-heading">Creative</h1>
+                        </div>
+                        <p class="section2-col-paragraph section2-para2" data-as="section2-popout2">We provide several tools for you to design your own Dottarry. Just dot your inspiration and let your mind fly!</p>
+                    </div>
+                    <div class="col-sm-4 section2-column">
+                        <div class="section2-col3" data-as="section2-popout3"><img class="section2-img" height="200" src="img/star.png">
+                            <h1 class="section2-heading">Fantastic</h1>
+                        </div>
+                        <p class="section2-col-paragraph section2-para3" data-as="section2-popout3">Have you ever seen alphabets and punctuation consists of dots? If not, all you can discover here is cool and fun and fantastic works!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section unitsection section3">
+            <div class="container section-container section3-container">
+                <div class="section3-titlediv">
+                    <h1 class="section3-title">We Provide...</h1>
+                </div>
+                <div class="section3-function">
+                    <div class="col-sm-6 section3-function-col" id="section3-lcol1" data-as="section3-leftside">
+                        <h1 class="section3-function1-title">Dots Design on Your Own</h1>
+                        <p class="section3-paragraph">Good artist needs good tools for them to&nbsp;create.&nbsp;We provide many tools and a clear canvas for you to design your own masterpiece.</p>
+                    </div>
+                    <div class="col-sm-6 section3-function-col" id="section3-rcol1" data-as="section3-rightside"><img class="section3-img" src="img/forest.png">
+                    </div>
+                </div>
+                <div class="section3-function">
+                    <div class="col-sm-6 section3-function-col section3-even-col" id="section3-rcol2" data-as="section3-rightside">
+                        <h1 class="section3-function1-title">32 Colors to Choose</h1>
+                        <p class="section3-paragraph">There are 32 colors for you to choose. Pick your favorite rainbow&nbsp;colors and make your work dazzling!&nbsp;</p>
+                    </div>
+                    <div class="col-sm-6 section3-function-col" id="section3-lcol2" data-as="section3-leftside"><img class="section3-img" src="img/colorrr.png">
+                    </div>
+                </div>
+                <div class="section3-function">
+                    <div class="col-sm-6 section3-function-col" id="section3-lcol3" data-as="section3-leftside">
+                        <h1 class="section3-function1-title">6 Shapes to Pick</h1>
+                        <p class="section3-paragraph">You can choose one shape out of the six. Try all of them and see which is the most special and the most&nbsp;stylish one.</p>
+                    </div>
+                    <div class="col-sm-6 section3-function-col" id="section3-rcol3" data-as="section3-rightside"><img class="section3-img" src="img/shape.png">
+                    </div>
+                </div>
+                <div class="section3-function">
+                    <div class="col-sm-6 section3-function-col section3-even-col" id="section3-rcol4" data-as="section3-rightside">
+                        <h1 class="section3-function1-title">Adjustable Dot &amp; Word&nbsp;Size</h1>
+                        <p class="section3-paragraph">Colors and shapes aren't enough for us. We provide two slide bars for you to adjust your dot and word size.&nbsp;Try this feature and let your canvas be&nbsp;starrier.</p>
+                    </div>
+                    <div class="col-sm-6 section3-function-col" id="section3-lcol4" data-as="section3-leftside"><img class="section3-img" src="img/size.png">
+                    </div>
+                </div>
+                <div class="section3-function">
+                    <div class="col-sm-6 section3-function-col" id="section3-lcol5" data-as="section3-leftside">
+                        <h1 class="section3-function1-title">Changeable&nbsp;Background</h1>
+                        <p class="section3-paragraph">A picture with white background is too monotone. Pick up the pen and eraser&nbsp;we give you and&nbsp;embellish your pictures.</p>
+                    </div>
+                    <div class="col-sm-6 section3-function-col" id="section3-rcol5" data-as="section3-rightside"><img class="section3-img" src="img/forest2.png">
+                    </div>
+                </div>
+                <div class="section3-function">
+                    <div class="col-sm-6 section3-function-col section3-even-col" id="section3-rcol6" data-as="section3-rightside">
+                        <h1 class="section3-function1-title">Picture&nbsp;Size&nbsp;Setting</h1>
+                        <p class="section3-paragraph">Within a mouse click, you can easily change the size of your work. Therefore, you can design both large and small pictures.&nbsp;</p>
+                    </div>
+                    <div class="col-sm-6 section3-function-col" id="section3-lcol6" data-as="section3-leftside"><img class="section3-img" src="img/abracadabra.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section unitsection section4">
             <div class="container">
-                <div class="collapse navbar-collapse navHeaderCollapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="">DottyCard</a></li>
-                        <li> <a href="makecard.html">製作 DottyCard</a></li>
-                        <li> <a href="example.html">精選範例</a></li>
-                    </ul>
-                    <a class="navbar-brand navbar-right" href="https://github.com/i314i">
-                        <img class="icon" src="img/github.png" alt="My github">
-                    </a>
-                    <a class="navbar-brand navbar-right" href="https://noootown.wordpress.com/">
-                        <img class="icon" src="img/wordpress.png" alt="沒一村生活點滴">
-                    </a>
-                </div>
+                <h1 class="section4-title">And the Most Important of All...</h1>
             </div>
-        </nav>
-
-        <div class="container">
-            <div class="col-lg-2"></div>
-            <div class="jumbotron col-lg-8">
-
-            </div>
-            <div class="col-lg-2"></div>
         </div>
-        <div class="container align-center">
-            <div class="col-lg-4">
-                <div class="jumbotron card text-center">
-                    <img class="card-icon" src="" alt="">
-                    <h2 class="card-title">製作簡單</h2>
-                    <p class="card-article">動動滑鼠，點個幾下，按下確定，就可以製作專屬的點點卡片囉！</p>
+        <div class="section unitsection section5"></div>
+        <div class="section unitsection section6">
+            <div class="container">
+                <div class="section6-titlediv">
+                    <h1 class="section6-title">Way to go!</h1>
                 </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="jumbotron card text-center">
-                    <img class="card-icon" src="" alt="">
-                    <h2 class="card-title">保存下來</h2>
-                    <p class="card-article">擔心製作的卡片只是曇花一現嗎？下載下來，改天上傳，就可以重溫感動！</p>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="jumbotron card text-center">
-                    <img class="card-icon" src="" alt="">
-                    <h2 class="card-title">展示給朋友</h2>
-                    <p class="card-article">傳送檔案給家人、朋友或心愛的人，向他們表白自己的心意吧！</p>
+                <div class="row">
+                    <div class="col-sm-4 section6-col"><img class="section6-img" src="img/olympicgames.png">
+                        <h1 class="section6-heading">Start Designing</h1>
+                        <a class="btn btn-primary section6-btn" href="makecard.html">have fun</a>
+                    </div>
+                    <div class="col-sm-4 section6-col"><img class="section6-img" src="img/book.png">
+                        <h1 class="section6-heading">Help Page</h1>
+                        <a class="btn btn-primary section6-btn" href="help.html">learn tutorials</a>
+                    </div>
+                    <div class="col-sm-4 section6-col"><img class="section6-img" src="img/dots.png">
+                        <h1 class="section6-heading">Great Dottarries</h1>
+                        <a class="btn btn-primary section6-btn" href="example.html">see examples</a>
+                    </div>
                 </div>
             </div>
         </div>
-
+        <div class="section clearfix unitsection section7">
+            <div class="container footer-container">
+                <div class="footerdiv footerimgdiv">
+                    <a class="inline-block footer-imglink" href="https://noootown.wordpress.com/" target="_blank"><img class="footer-img" src="img/noootown.png">
+                    </a>
+                </div>
+                <div class="footerdiv footer-worddiv">
+                    <h1 class="footer-word">Watch me and look at me.</h1>
+                </div>
+                <div class="footerdiv footer-linkDiv">
+                    <a class="footer-link" href="https://noootown.wordpress.com/" target="_blank">Wordpress</a>
+                    &nbsp;&nbsp;/&nbsp;&nbsp;
+                    <a class="footer-link" href="https://github.com/i314i" target="_blank">Github</a>
+                </div>
+                <div class="license">Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
+            </div>
+        </div>
     </body>
 </html>
+<script src="js/bootstrap.js"></script>
+<script src="js/index.js"></script>

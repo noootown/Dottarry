@@ -52,17 +52,47 @@ var setDownloadDialogOrNot=false;//判斷是否已在myDownloadDialog裡加了<a
 var downloadCanvasWidth;//要下載的圖片的寬，也是裝我們要下載的圖的canvas的寬
 var filename;//下載檔名
 var downloadImg;//要下載的圖片
+
+(function($){
+    $.fn.showDialog=function(){
+        this.animate({
+            top:50
+        },{
+            duration:400,
+            effect:'slide',
+            easing:'easeOutBack'
+        });
+        return this;
+    };
+    $.fn.hideDialog=function(){
+        this.animate({
+            top:-200
+        },{
+            duration:400,
+            effect:'slide',
+            easing:'easeInBack'
+        });
+        return this;
+    };
+})(jQuery);
+
 function initSetting(){//初始化所有特性和特性的設定器
-    $('.form-control').change(function(){
+    var sel=$('#myAlertDialog');
+    $('#dotWords').change(function(){
         var str=$('#dotWords').val();
         if(str.match(inputRegStr)[0]==str){//判斷輸入字串是否符合格式
             allWords=$('#dotWords').val();
             updateWord();
         }
         else{
-            alertDialog('','Dottary only supports alphabets, numbers and !\"#$&\'()*+,-./:;<=>?@[\]^_{|}~ these punctuation marks.');
+            $('#myAlertDialog').showDialog();
+            $('#btnOk').focus();
+            $('#myAlertDialog').find('#btnOk').on('click',function(){
+                $('#myAlertDialog').hideDialog();
+            });
         }
     });
+    $('#dotWords').attr('placeholder','Whatever you want!!!');
     $('#text-slider').slider({//設定text-slider的一些設定
         value:TEXT_SLIDER_VALUE,
         max:TEXT_SLIDER_MAX,
@@ -107,7 +137,6 @@ function initSetting(){//初始化所有特性和特性的設定器
 
     //dotWord
     $('#dotWords').val("");
-
     //choosedColor
     $('#choosedColor')
         .attr('ondrop','dropFunc(event)')
@@ -141,7 +170,7 @@ function initSetting(){//初始化所有特性和特性的設定器
     });
     $('.eraserCheck').on('click',function(e){
         $('#myCanvas').toggleClass('active');
-        $('#subNavBar').toggleClass('cannotSlideDown');//必免navbar把canvas遮住，造成橡皮擦不能滑到最上面
+        //$('#subNavBar').toggleClass('cannotSlideDown');//必免navbar把canvas遮住，造成橡皮擦不能滑到最上面
         $(this).toggleClass('active');
         eraseOrNot=!eraseOrNot;
     });
@@ -154,7 +183,21 @@ function initSetting(){//初始化所有特性和特性的設定器
 
     //edit
     $('#edit1').on('click',function(){
-        resetDialog('','Are you sure to reset canvas?');
+        var dialog=$('#myResetDialog');
+        dialog.showDialog();
+        dialog.find('#btnCancel').focus().on('click',function(){
+            dialog.hideDialog();
+        });
+        dialog.find('#btnOk').on('click',function(){
+            imgData=clearImgData; 
+            imgDataStack=[]; 
+            redoImgDataStack=[]; 
+            $('#dotWords').val('');
+            allWords='';
+            collection=new pointCollection();
+            dialog.hideDialog();
+        })
+        //resetDialog();
     });
     $('#edit2').on('click',function(){
         if(imgDataStack.length!=0){
@@ -175,9 +218,40 @@ function initSetting(){//初始化所有特性和特性的設定器
     });
     $('#edit4').on('click',function(){
         tmpEraseOrNot=eraseOrNot;//儲存目前的eraseOrNot狀態，因為接下來要把它變false，橡皮擦才不會被截圖
+        $('#filenameInput').val(allWords);
+        $('#filenameInput').attr('placeholder','filename');
         eraseOrNot=false;
-        downloadDialog();
+        var dialog=$('#myDownloadDialog');
+        dialog.showDialog();
+        dialog.find('#btnCancel').focus().on('click',function(){
+            eraseOrNot=tmpEraseOrNot;
+            dialog.hideDialog();
+        });
+
+        dialog.find('#btnPng').on('click',function(){
+            if(downloadCanvasWidth==2)
+            return;
+        setDownloadCanvas(0);
+        $('#btnPng')
+            .attr('download',filename+'.png')
+            .attr('href',document.getElementById('downloadCanvas').toDataURL('image/png'));
+        eraseOrNot=tmpEraseOrNot;
+        dialog.hideDialog();
+
+        });
+
+        dialog.find('#btnJpeg').on('click',function(){
+            if(downloadCanvasWidth==2)//如果兩條邊線重疊
+            return;
+        setDownloadCanvas(1);
+        $('btnJpeg')
+            .attr('download',filename+'.jpeg')
+            .attr('href',document.getElementById('downloadCanvas').toDataURL('image/jpeg'));
+        eraseOrNot=tmpEraseOrNot;
+        dialog.hideDialog();
+        });
     });
+
     $('#edit5').on('click',function(){
 
     });
@@ -348,106 +422,6 @@ function navbarSlideUp(){
         },500);},2000);
 }
 $(document).on('mouseout','#subNavBar',navbarSlideUp);
-//alert使用者資訊
-function alertDialog(titleMsg,outputMsg){
-    if(!titleMsg)
-        titleMsg = 'Dialog';
-    if(!outputMsg)
-        outputMsg = 'No Message to Display.';
-    $('#myAlertDialog').html(outputMsg).dialog({
-        title: titleMsg,
-        resizable: false,
-        modal: true,
-        buttons: {
-            'OK': function(){$(this).dialog('close');}
-        },
-        draggable:false,
-        show:{
-            effect:'slide',
-        direction:'up',
-        distance:100,
-        easing:'easeOutBack',
-        duration:400
-        },
-        hide:{
-            effect:'slide',
-        direction:'up',
-        distance:100,
-        easing:'easeInBack',
-        duration:400
-        },
-        position:{
-            my:'top',
-            at:'bottom',
-            of:'#subNavBar'
-        }
-    });
-}
-//詢問使用者是否下載
-function downloadDialog(){
-    var self=$('#myDownloadDialog');
-    self.html('Download?').dialog({
-        resizable: false,
-        modal: true,
-        draggable:false,
-        show:{
-            effect:'slide',
-        direction:'up',
-        distance:100,
-        easing:'easeOutBack',
-        duration:400
-        },
-        hide:{
-            effect:'slide',
-        direction:'up',
-        distance:100,
-        easing:'easeInBack',
-        duration:400
-        },
-        position:{
-            my:'top',
-        at:'bottom',
-        of:'#subNavBar'
-        }
-    });
-    //如果是第一次開啟這個dialog，就增加以下東西
-    if(!setDownloadDialogOrNot){
-        self.after('<span class="input-group"><input class="form-control" id="filenameInput" type="text" value=""><h6>.jpeg/.png</h6></span>');
-        self.parent().find('span').after('<div class=dialogBtnSet></div>');
-        $('div.dialogBtnSet').append('<a class="jpegBtn" type="button" href="#">jpeg</a>');
-        $('div.dialogBtnSet').append('<a class="pngBtn" type="button" href="#">png</a>');
-        $('div.dialogBtnSet').append('<a class="closeBtn" type="button" href="#">close</a>');
-        setDownloadDialogOrNot=true;
-    }
-    //檔名預設使用者自己輸入的字
-    $('#filenameInput').val(allWords);
-    $('.closeBtn').on('click',function(){
-        eraseOrNot=tmpEraseOrNot;
-        self.dialog('close');
-    });
-
-    $('.jpegBtn').on('click',function(){
-        if(downloadCanvasWidth==2)//如果兩條邊線重疊
-        return;
-    setDownloadCanvas(1);
-    $('.jpegBtn')
-        .attr('download',filename+'.jpeg')
-        .attr('href',document.getElementById('downloadCanvas').toDataURL('image/jpeg'));
-    eraseOrNot=tmpEraseOrNot;
-    self.dialog('close');
-    });
-
-    $('.pngBtn').on('click',function(){
-        if(downloadCanvasWidth==2)
-        return;
-    setDownloadCanvas(0);
-    $('.pngBtn')
-        .attr('download',filename+'.png')
-        .attr('href',document.getElementById('downloadCanvas').toDataURL('image/png'));
-    eraseOrNot=tmpEraseOrNot;
-    self.dialog('close');
-    });
-}
 
 function setDownloadCanvas(type){//0:png 1:jpeg
     var downloadCanvas=$('#downloadCanvas');
@@ -478,53 +452,6 @@ function setDownloadCanvas(type){//0:png 1:jpeg
     downloadContext.putImageData(downloadImg,0,0);
     filename=$('#filenameInput').val()==''?'Dottary':$('#filenameInput').val();
 }
-//是否reset背景和word
-function resetDialog(titleMsg,outputMsg){
-    if(!titleMsg)
-        titleMsg = 'Dialog';
-    if(!outputMsg)
-        outputMsg = 'No Message to Display.';
-    $('#myResetDialog').html(outputMsg).dialog({
-        title: titleMsg,
-        resizable: false,
-        modal: true,
-        open: function() {
-            $(this).parent().find('.ui-dialog-buttonpane button:eq(1)').focus(); 
-        },
-        buttons: {
-            'OK': function(){
-                imgData=clearImgData; 
-                imgDataStack=[]; 
-                redoImgDataStack=[]; 
-                $('#dotWords').val('');
-                allWords='';
-                collection=new pointCollection();
-                $(this).dialog('close');
-            },
-        'cancel': function(){$(this).dialog('close');}
-        },
-        draggable:false,
-        show:{
-            effect:'slide',
-            direction:'up',
-            distance:100,
-            easing:'easeOutBack',
-            duration:400
-        },
-        hide:{
-            effect:'slide',
-            direction:'up',
-            distance:100,
-            easing:'easeInBack',
-            duration:400
-        },
-        position:{
-            my:'top',
-            at:'bottom',
-            of:'#subNavBar'
-        }
-    });
-}
 
 $(document).ready(function(){
     //to prevent class col-lg-3 being cut by buttom navbar
@@ -533,28 +460,40 @@ $(document).ready(function(){
     });
     $(window).resize(function(){
         updateCanvas();
+        updateWord();
+        //$('#canvas-slider').slider({//設定canvas-slider的一些設定
+        //value:CANVAS_SLIDER_VALUE,
+        //max:CANVAS_SLIDER_MAX,
+        //min:CANVAS_SLIDER_MIN,
+        //step:CANVAS_SLIDER_STEP,
+        //stop:function(event,ui){
+        //downloadCanvasWidth=$('#canvas-slider').slider('value');
+        //if(downloadCanvasWidth>canvasWidth)
+        //downloadCanvasWidth=canvasWidth+2;//+2是加兩條線的寬
+        //draw();
+        //}
+        //});
     });
     $('<span class="color" title="black" style="background-color: rgb(0,0,0)" id="color1"></span>').appendTo('#choosedColor');
     $('#eraserCanvasDiv')
-    .css('width',$('.col-lg-3>div.panel').width()-$('#eraserSettingDiv').width()-10)
-    .css('height',$('#eraserCanvasDiv').width());
+        .css('width',80)
+        .css('height',80);
 
-eraserCanvas.attr({
-    height:$('#eraserCanvasDiv').width(),
-    width:$('#eraserCanvasDiv').width()
-})
-eraserContext=eraserCanvas.get('0').getContext('2d');
-updateCanvas();
-myEraser=new eraser();//新增我們的eraser
-downloadCanvasWidth=canvasWidth+2;
-CANVAS_SLIDER_MAX=canvasWidth+CANVAS_SLIDER_STEP;//設定canvas slider
-CANVAS_SLIDER_VALUE=CANVAS_SLIDER_MAX;
-initSetting();//初始化設定
-
-updateWord();
-if(canvas.get(0).getContext!=null)
-    context=canvas.get(0).getContext('2d');
+    eraserCanvas.attr({
+        height:$('#eraserCanvasDiv').width(),
+        width:$('#eraserCanvasDiv').width()
+    })
+    eraserContext=eraserCanvas.get('0').getContext('2d');
+    updateCanvas();
+    myEraser=new eraser();//新增我們的eraser
+    downloadCanvasWidth=canvasWidth+2;
+    CANVAS_SLIDER_MAX=canvasWidth+CANVAS_SLIDER_STEP;//設定canvas slider
+    CANVAS_SLIDER_VALUE=CANVAS_SLIDER_MAX;
+    initSetting();//初始化設定
+    updateWord();
+    if(canvas.get(0).getContext!=null)
+        context=canvas.get(0).getContext('2d');
     imgData=context.getImageData(0,0,canvasWidth,canvasHeight);
     clearImgData=imgData;//取得空背景
     bubblePop();
-    });
+});

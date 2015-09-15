@@ -7,18 +7,27 @@
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
         <link rel="stylesheet" href="css/styles.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-        <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
         <!--slideBar-->
-        <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        <!--<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>-->
     </head>
-    <body style="background-color:#E0E0E0">
+    <body>
         <nav class="navbar navbar-default navbar-static-top" id="mainNavBar">
             <div class="container">
+                <div class="navbar-header">
+                    <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
                 <div class="collapse navbar-collapse navHeaderCollapse">
-                    <ul class="nav navbar-nav">
+                    <ul class="nav navbar-nav navbar-left">
                         <li><a href="index.html">DottyCard</a></li>
-                        <li class="active"> <a href="">製作 DottyCard</a></li>
+                        <li class="active"> <a href="#">製作 DottyCard</a></li>
                         <li> <a href="example.html">精選範例</a></li>
+                        <li> <a href="https://github.com/i314i" id="myGithub">My Github</a></li>
+                        <li> <a href="https://noootown.wordpress.com/" id="myBlog">My Blog</a></li>
                     </ul>
                     <a class="navbar-brand navbar-right" href="https://github.com/i314i">
                         <img class="icon" src="img/github.png" alt="My github">
@@ -30,9 +39,9 @@
             </div>
         </nav>
         <!--用來感應是否掉主navbar-->
-        <nav class="navbar navbar-default navbar-static-top" id="subNavBar">
-            <img class="subNavIcon" src="img/slidedownicon.png">
-        </nav>
+        <!--<nav class="navbar navbar-default navbar-static-top" id="subNavBar">-->
+            <!--<img class="subNavIcon" src="img/slidedownicon.png">-->
+        <!--</nav>-->
 
         <canvas id="downloadCanvas"></canvas>
         <div class="main">
@@ -114,18 +123,44 @@
                             <div class="slideBar" id="dot-slider"></div>
                         </div>
                         <div class="panel">
-                            <h5 id="canvasSliderValue">picture size</h5>
+                            <h5 id="canvasSliderValue">picture width</h5>
                             <div class="slideBar" id="canvas-slider"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div id="myAlertDialog"></div>
-        <div id="myDownloadDialog"></div>
-        <div id="myResetDialog"></div>
+        <div id="myAlertDialog" class="myDialog myWidget">
+            <div class="myDialog-content myWidget">
+                Dottary only supports alphabets, numbers and !"#$&'()*+,-./:;<=>?@[\]^_{|}~ these punctuation marks.}])'
+            </div>
+            <nav class="myDialog-buttonSet myWidget">
+                <a class="myDialog-button myWidget" id='btnOk'  href="#">OK</a>
+            </nav>
+        </div>
+        <div id="myResetDialog" class="myDialog myWidget">
+            <div class="myDialog-content myWidget">
+                Are you sure to reset canvas?
+            </div>
+            <nav class="myDialog-buttonSet myWidget">
+                <a class="myDialog-button myWidget" id='btnOk'  href="#">OK</a>
+                <a class="myDialog-button myWidget" id='btnCancel'  href="#">cancel</a>
+            </nav>
+        </div>
+        <div id="myDownloadDialog" class="myDialog myWidget">
+            <div class="myDialog-content myWidget">
+                Are you sure to download?
+            </div>
+            <nav class="input-group"><input class="form-control" id="filenameInput" type="text" value=""><h6>.jpeg/.png</h6></nav>
+            <nav class="myDialog-buttonSet myWidget">
+                <a class="myDialog-button myWidget" id='btnJpeg'  href="#">jpeg</a>
+                <a class="myDialog-button myWidget" id='btnPng'  href="#">png</a>
+                <a class="myDialog-button myWidget" id='btnCancel'  href="#">cancel</a>
+            </nav>
+        </div>
     </body>
 </html>
+<script src="js/jquery.ui.touch-punch.min.js"></script>
 <script src="js/bubbles.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/makecard.js"></script>

@@ -70,7 +70,7 @@ $(document).ready(function(){
     setTimeout(function(){
         $body.animate({
             scrollTop: $('div.navbar').height()+10
-        }, 1000, 'easeOutBack')},800);
+        }, 1000, 'easeOutBack');},800);
 
     //load anim
     $('h1.description1').addClass('animEndOrigin');

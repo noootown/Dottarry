@@ -55,6 +55,7 @@ var downloadImg;//要下載的圖片
 
 (function($){
     $.fn.showDialog=function(){
+        $('div.modal').attr('visibility','visible');
         this.animate({
             top:50
         },{
@@ -72,6 +73,11 @@ var downloadImg;//要下載的圖片
             effect:'slide',
             easing:'easeInBack'
         });
+        var $body = (window.opera) ? (document.compatMode == "CSS1Compat" ? $('html') : $('body')) : $('html, body');
+        setTimeout(function(){
+            $body.animate({
+                scrollTop: $('div.navbar').height()+10
+            }, 1000, 'easeOutBack');},401);
         return this;
     };
 })(jQuery);
@@ -147,7 +153,6 @@ function initSetting(){//初始化所有特性和特性的設定器
     $('span.color')
         .attr('draggable',true)
         .attr('ondragend','dragEndFunc(event)');
-
     choosedColorNum=1;
 
     //eraser canvas
@@ -174,11 +179,12 @@ function initSetting(){//初始化所有特性和特性的設定器
         $(this).toggleClass('active');
         eraseOrNot=!eraseOrNot;
     });
-    $('.eraserCheck').on('mouseover',function(e){
-        $(this).addClass('hover');
-    });
-    $('.eraserCheck').on('mouseout',function(e){
-        $(this).removeClass('hover');
+    $('.eraserTap').on('tap',function(e){
+        $('#myCanvas').toggleClass('active');
+        //$('#subNavBar').toggleClass('cannotSlideDown');//必免navbar把canvas遮住，造成橡皮擦不能滑到最上面
+        $(this).toggleClass('active');
+        eraseOrNot=!eraseOrNot;
+
     });
 
     //edit
@@ -244,11 +250,15 @@ function initSetting(){//初始化所有特性和特性的設定器
             if(downloadCanvasWidth==2)//如果兩條邊線重疊
             return;
         setDownloadCanvas(1);
-        $('btnJpeg')
+        $('#btnJpeg')
             .attr('download',filename+'.jpeg')
             .attr('href',document.getElementById('downloadCanvas').toDataURL('image/jpeg'));
         eraseOrNot=tmpEraseOrNot;
         dialog.hideDialog();
+        });
+        dialog.find('btnCancel').on('click',function(){
+            //$('#btnCancel').attr('href','#');
+            dialog.hideDialog();
         });
     });
 
@@ -390,6 +400,21 @@ function dragEndFunc(event){
     if(dragObject==1)
         $('#colorBlock').remove();
 }
+function mobileSelectEraserColor(){
+    myEraser.color=$(this).attr('style').substring(18);
+    console.log(myEraser.color);
+    eraserContext.clearRect(0,0,eraserCanvas.width(),eraserCanvas.height());
+    drawShape(eraserCanvas,myEraser.eraserShape,eraserCanvas.height()/2,eraserCanvas.height()/2,myEraser.radius*2,myEraser.color);
+}
+$(document).on('taphold','div.colorList>span.color',mobileSelectEraserColor);
+function mobileSelectEraserShape(){
+    console.log(this);
+    myEraser.eraserShape=Number($(this).prop('id').substr(5,1));
+    console.log(myEraser.shape);
+    eraserContext.clearRect(0,0,eraserCanvas.width(),eraserCanvas.height());
+    drawShape(eraserCanvas,myEraser.eraserShape,eraserCanvas.height()/2,eraserCanvas.height()/2,myEraser.radius*2,myEraser.color);
+}
+$(document).on('taphold','h6.shapeBtn',mobileSelectEraserShape);
 //更新選擇的顏色
 function updateChoosedColor(){
     colors.length=0;
@@ -409,7 +434,7 @@ function navbarSlideDown(){
         setTimeout(function(){
             $('#mainNavBar').animate({
                 opacity:1,
-            top:'0px'
+                top:'0px'
             },500);},0);
 }
 $(document).on('mouseover','#subNavBar',navbarSlideDown);
@@ -452,28 +477,41 @@ function setDownloadCanvas(type){//0:png 1:jpeg
     downloadContext.putImageData(downloadImg,0,0);
     filename=$('#filenameInput').val()==''?'Dottary':$('#filenameInput').val();
 }
-
-$(document).ready(function(){
-    //to prevent class col-lg-3 being cut by buttom navbar
-    $(window).load(function(){
-
+$('img.navbar-toggle').on('click',function(){
+    $(this).toggleClass('clicked');
+    $('nav.nav-menu').toggleClass('end');
+    if($(this).hasClass('clicked'))
+    $(this).attr('src','img/close.png');
+    else
+    $(this).attr('src','img/slidedownicon.png');
+});
+function updateCanvasProperty(){
+    updateCanvas();
+    updateWord();
+    $('#canvas-slider').slider({//設定canvas-slider的一些設定
+        value:CANVAS_SLIDER_VALUE,
+        max:CANVAS_SLIDER_MAX,
+        min:CANVAS_SLIDER_MIN,
+        step:CANVAS_SLIDER_STEP,
+        stop:function(event,ui){
+            downloadCanvasWidth=$('#canvas-slider').slider('value');
+            if(downloadCanvasWidth>canvasWidth)
+        downloadCanvasWidth=canvasWidth+2;//+2是加兩條線的寬
+    draw();
+        }
     });
-    $(window).resize(function(){
-        updateCanvas();
-        updateWord();
-        //$('#canvas-slider').slider({//設定canvas-slider的一些設定
-        //value:CANVAS_SLIDER_VALUE,
-        //max:CANVAS_SLIDER_MAX,
-        //min:CANVAS_SLIDER_MIN,
-        //step:CANVAS_SLIDER_STEP,
-        //stop:function(event,ui){
-        //downloadCanvasWidth=$('#canvas-slider').slider('value');
-        //if(downloadCanvasWidth>canvasWidth)
-        //downloadCanvasWidth=canvasWidth+2;//+2是加兩條線的寬
-        //draw();
-        //}
-        //});
-    });
+}
+$(window).on('orientationchange',function(event){
+    setTimeout(updateCanvasProperty,1000);
+});
+function initAll(){
+    var $body = (window.opera) ? (document.compatMode == "CSS1Compat" ? $('html') : $('body')) : $('html, body');
+    $body.scrollTop(0);
+    setTimeout(function(){
+        $body.animate({
+            scrollTop: $('div.navbar').height()+10
+        }, 1000, 'easeOutBack');},800);
+
     $('<span class="color" title="black" style="background-color: rgb(0,0,0)" id="color1"></span>').appendTo('#choosedColor');
     $('#eraserCanvasDiv')
         .css('width',80)
@@ -496,4 +534,15 @@ $(document).ready(function(){
     imgData=context.getImageData(0,0,canvasWidth,canvasHeight);
     clearImgData=imgData;//取得空背景
     bubblePop();
+
+}
+
+$(document).ready(function(){
+    //to prevent class col-lg-3 being cut by buttom navbar
+    $(window).load(function(){
+
+    });
+    $(window).resize(function(){
+    });
+    initAll();
 });

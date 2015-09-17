@@ -150,6 +150,7 @@ function bubblePop(){
 function updateCanvas(){
     panelWidth=$('.cardDisplay').width();
     //var hei="innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
+    $('.nav-link').html($('.dotCanvas>div.container').width());
     var hei=$(window).height();
     hei=hei-$('.dotSetting').height()-20;
     if(hei<250)
@@ -162,16 +163,16 @@ function updateCanvas(){
     });
     canvasWidth=canvas.width();
     canvasHeight=canvas.height();
-    //downloadCanvasWidth=canvasWidth+2;
-    //CANVAS_SLIDER_MAX=canvasWidth+CANVAS_SLIDER_STEP;//設定canvas slider
-    //CANVAS_SLIDER_VALUE=CANVAS_SLIDER_MAX;
+    downloadCanvasWidth=canvasWidth+2;
+    CANVAS_SLIDER_MAX=canvasWidth+CANVAS_SLIDER_STEP;//設定canvas slider
+    CANVAS_SLIDER_VALUE=CANVAS_SLIDER_MAX;
 }
 
 canvas.mousedown(function(e){
     if(eraseOrNot){
         clickOrNot=true;
         TIME_INTERVAL=1;//每1ms call一次bubblePop
-        if(redoImgDataStack.length!=0){//如果下一步的stack不是空的︳就清除之
+        if(redoImgDataStack.length!=0){//如果下一步的stack不是空的，就清除之
             redoImgDataStack=[];
         }
     }
@@ -180,7 +181,7 @@ canvas.on('touchstart',function(e){
     console.log('haha');
     if(eraseOrNot){
         clickOrNot=true;
-        TIME_INTERVAL=1;//每1ms call一次bubblePop
+        TIME_INTERVAL=0;//每1ms call一次bubblePop
         if(redoImgDataStack.length!=0){//如果下一步的stack不是空的︳就清除之
             redoImgDataStack=[];
         }

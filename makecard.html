@@ -2,46 +2,36 @@
 <html lang="en">
     <head>
         <meta name="viewport" content="width=device-width , initial-scale=1.0" charset="UTF-8">
-        <title>DottyCard</title>
+        <title>Dottarry</title>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
         <link rel="stylesheet" href="css/styles.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
         <!--slideBar-->
-        <!--<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>-->
+        <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     </head>
     <body>
-        <nav class="navbar navbar-default navbar-static-top" id="mainNavBar">
-            <div class="container">
-                <div class="navbar-header">
-                    <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div>
-                <div class="collapse navbar-collapse navHeaderCollapse">
-                    <ul class="nav navbar-nav navbar-left">
-                        <li><a href="index.html">DottyCard</a></li>
-                        <li class="active"> <a href="#">製作 DottyCard</a></li>
-                        <li> <a href="example.html">精選範例</a></li>
-                        <li> <a href="https://github.com/i314i" id="myGithub">My Github</a></li>
-                        <li> <a href="https://noootown.wordpress.com/" id="myBlog">My Blog</a></li>
-                    </ul>
-                    <a class="navbar-brand navbar-right" href="https://github.com/i314i">
-                        <img class="icon" src="img/github.png" alt="My github">
+        <div class="modal">
+        </div>
+        <div class="nav navbar">
+            <div class="container navbar-container">
+                <div class="navBar">
+                    <nav class="nav-menu navbar-menu" data-as="navmenu">
+                        <a class="nav-link" href="index.html">Dottarry</a>
+                        <a class="nav-link active">Make</a>
+                        <a class="nav-link" href="help.html">Help</a>
+                        <a class="nav-link" href="example.html">Example</a>
+                    </nav>
+                    <a class="nav-brand navbar-brand" href="https://noootown.wordpress.com" target="_blank"><img class="navbar-img" width="50" height="50" src="img/wordpress.png">
                     </a>
-                    <a class="navbar-brand navbar-right" href="https://noootown.wordpress.com/">
-                        <img class="icon" src="img/wordpress.png" alt="沒一村生活點滴">
+                    <a class="nav-brand navbar-brand" href="https://github.com/i314i" target="_blank"><img class="navbar-img" width="50" height="50" src="img/github.png">
                     </a>
+                    <img class="navbar-toggle" src="img/slidedownicon.png" height="32" width="32">
                 </div>
             </div>
-        </nav>
-        <!--用來感應是否掉主navbar-->
-        <!--<nav class="navbar navbar-default navbar-static-top" id="subNavBar">-->
-            <!--<img class="subNavIcon" src="img/slidedownicon.png">-->
-        <!--</nav>-->
+        </div>
 
         <canvas id="downloadCanvas"></canvas>
         <div class="main">
@@ -132,7 +122,7 @@
         </div>
         <div id="myAlertDialog" class="myDialog myWidget">
             <div class="myDialog-content myWidget">
-                Dottary only supports alphabets, numbers and !"#$&'()*+,-./:;<=>?@[\]^_{|}~ these punctuation marks.}])'
+                Dottarry only supports alphabets, numbers and !"#$&'()*+,-./:;<=>?@[\]^_{|}~ these punctuation marks.}])'
             </div>
             <nav class="myDialog-buttonSet myWidget">
                 <a class="myDialog-button myWidget" id='btnOk'  href="#">OK</a>
@@ -153,9 +143,9 @@
             </div>
             <nav class="input-group"><input class="form-control" id="filenameInput" type="text" value=""><h6>.jpeg/.png</h6></nav>
             <nav class="myDialog-buttonSet myWidget">
-                <a class="myDialog-button myWidget" id='btnJpeg'  href="#">jpeg</a>
-                <a class="myDialog-button myWidget" id='btnPng'  href="#">png</a>
-                <a class="myDialog-button myWidget" id='btnCancel'  href="#">cancel</a>
+                <a class="myDialog-button myWidget" id="btnJpeg"  href="#">jpeg</a>
+                <a class="myDialog-button myWidget" id="btnPng"  href="#">png</a>
+                <a class="myDialog-button myWidget" id="btnCancel"  href="#">cancel</a>
             </nav>
         </div>
     </body>

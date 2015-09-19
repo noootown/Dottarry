@@ -2,7 +2,7 @@ Dottarry
 -------------------------------------------------------------------------------
 A website use for making and downloading dotty pictures!!!
 
-This website was inspired by a course in Cocademy. In order to improve my html, CSS, javascript and bootstrap skill, I build this website. Hope you can have fun with it.
+This website was inspired by a course in Cocademy. In order to improve my html, CSS, javascript, bootstrap and rwd skill, I build this website. Hope you can have fun with it.
 
 Software credits:
 -------------------------------------------------------------------------------

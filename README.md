@@ -14,6 +14,7 @@ Dottarry uses or adapts the following libraries and code:
  - JQuery & Javascript
  
   http://jquery.com
+
   ajax google api
 
  - Bootstrap

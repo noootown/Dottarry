@@ -39,17 +39,16 @@ function eraser(){//eraser物件
     this.radius=ERASER_SLIDER_VALUE;
     this.eraserShape=1;
     this.mousePos;
-    if(!mobileOrNot)
+    if(!mobileOrNot)//eraser如果是mobile就藏起來，否則就顯示在canvas上~~
         this.mousePos=new Vector(ERASER_SLIDER_MAX,canvasHeight-ERASER_SLIDER_MAX);
     else
         this.mousePos=new Vector(-100,-100);
 
-    this.draw=function(){
-        if($(window).width()<1200){
-            if(clickOrNot)
+    this.draw=function(){//畫eraser
+        if($(window).width()<1200)
+            if(clickOrNot)//如果畫面寬度小於1200且有按下才畫
                 drawShape(canvas,this.eraserShape,this.mousePos.x,this.mousePos.y,this.radius*2,this.color);
-        }
-        else if(eraseOrNot){
+        else if(eraseOrNot){//如果畫面寬度大於1200，只要有點paint，就畫
             drawShape(canvas,this.eraserShape,this.mousePos.x,this.mousePos.y,this.radius*2,this.color);
         }
     };
@@ -67,13 +66,13 @@ function pointCollection(){//the collection of dots
             var tmppoint=this.points[i];
             if(tmppoint===null)
                 continue;
-            tmppoint.draw(this.bubbleshape);
+            tmppoint.draw(this.bubbleshape);//畫點點
         }
     };
     this.update=function(){
         for(var i=0;i<this.points.length;i++){
             var tmppoint=this.points[i];
-            tmppoint.update();
+            tmppoint.update();//更新點點
         }
     };
 }
@@ -105,7 +104,7 @@ function draw(){//draw the dots
     if(canvas.get(0).getContext===null)
         return ;
     context=canvas.get(0).getContext('2d');
-    context.clearRect(0,0,canvasWidth,canvasHeight);
+    context.clearRect(0,0,canvasWidth,canvasHeight);//把canvas都reset，因為我們要重新畫點點
     context.putImageData(imgData,0,0);//放置背景圖
 
     if(myEraser)
@@ -113,8 +112,8 @@ function draw(){//draw the dots
     if(clickOrNot)//如果滑鼠有按下的話，那就一直截圖，等下一次再call draw()的時候，就可以把目前的圖再放上去，
         imgData=context.getImageData(0,0,canvasWidth,canvasHeight);
     if(collection)
-        collection.draw();
-    //draw canvas border
+        collection.draw();//畫上點點
+    //draw canvas border，重複畫兩次，讓邊界變的更粗
     context.beginPath();
     context.strokeStyle='rgba(0,0,0,1)';
     context.lineWidth=1;
@@ -144,7 +143,7 @@ function update(){//update the dots
 function bubblePop(){
     draw();
     update();
-    setTimeout(bubblePop,TIME_INTERVAL);
+    setTimeout(bubblePop,TIME_INTERVAL);//定時畫和更新
 }
 
 function updateCanvas(){
@@ -170,13 +169,11 @@ canvas.mousedown(function(e){
     if(eraseOrNot){
         clickOrNot=true;
         TIME_INTERVAL=1;//每1ms call一次bubblePop
-        if(redoImgDataStack.length!=0){//如果下一步的stack不是空的，就清除之
+        if(redoImgDataStack.length!=0)//如果下一步的stack不是空的，就清除之
             redoImgDataStack=[];
-        }
     }
 });
-canvas.on('touchstart',function(e){
-    console.log('haha');
+canvas.on('touchstart',function(e){//支援手機觸控
     if(eraseOrNot){
         clickOrNot=true;
         TIME_INTERVAL=0;//每1ms call一次bubblePop
@@ -193,7 +190,7 @@ canvas.mouseup(function(e){
         imgDataStack.push(imgData);//把imgdata push到上一步的stack中。
     }
 });
-canvas.on('touchend',function(){
+canvas.on('touchend',function(){//支援手機觸控
     if(eraseOrNot){
         clickOrNot=false;
         TIME_INTERVAL=30;//換回來30ms
@@ -301,4 +298,3 @@ function drawShape(canvas,shape,x,y,radius,color){
         context.stroke();
     }
 }
-

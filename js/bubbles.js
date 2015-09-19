@@ -45,9 +45,10 @@ function eraser(){//eraser物件
         this.mousePos=new Vector(-100,-100);
 
     this.draw=function(){//畫eraser
-        if($(window).width()<1200)
+        if($(window).width()<1200){
             if(clickOrNot)//如果畫面寬度小於1200且有按下才畫
                 drawShape(canvas,this.eraserShape,this.mousePos.x,this.mousePos.y,this.radius*2,this.color);
+        }
         else if(eraseOrNot){//如果畫面寬度大於1200，只要有點paint，就畫
             drawShape(canvas,this.eraserShape,this.mousePos.x,this.mousePos.y,this.radius*2,this.color);
         }

@@ -7,7 +7,7 @@ Software credits:
 -------------------------------------------------------------------------------
 Dottarry uses or adapts the following libraries and code:
 
- - Courses in Codecademy
+ - Course in Codecademy
  
   https://www.codecademy.com/courses/animate-your-name/0/1
 

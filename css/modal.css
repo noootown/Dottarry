@@ -1,0 +1,184 @@
+
+html,body{
+overflow-x:hidden;
+/*overflow-y:scroll;*/
+font-family:Ubuntu,Varela Round,Verdana ,Droid Sans,Helvetica ,sans-serif;
+top:0;
+margin:0;
+position:relative;
+/*background-color:#0D4EA4;*/
+background-image:linear-gradient(330deg, #2E3192, #1BFFFF);
+height:100%;
+width:100%
+}
+div.ui-loader.ui-corner-all {
+display: none;
+}
+.messageDiv{
+    position:relative;
+    font-size:40px;
+    color:#FFFFFF;
+    font-weight:300;
+    text-align:center;
+    
+}
+.helpImg{
+    margin:50px 0;
+    width:100%;
+    border:#FFFFFF;
+    border-style:solid;
+}
+.apologizeDiv{
+    top:40%;
+}
+.improveDiv{
+    margin:100px 0;
+}
+.helpInstruction{
+    font-weight:100;
+    font-size:25px;
+    text-align:left;
+    /*margin-bottom:50px;*/
+}
+.importantWord{
+    color:#FF0000;
+}
+/*navbar*/
+.nav-link{
+color:#000000;
+}
+.nav-link.active{
+font-weight:400;
+font-size:20px;
+}
+.nav-link{
+display:inline;
+background-color:transparent;
+margin:0 10px;
+height:30px;
+font-size:15px;
+}
+.nav-link:hover, .nav-link:visited, .nav-link:link{
+text-decoration:none;
+}
+.navbar {
+
+position: absolute;
+left: 0px;
+top: 0px;
+right: 0px;
+z-index: 100;
+display: block;
+/*overflow-x: visible;*/
+overflow-y: visible;
+width: 100%;
+height: 70px;
+padding-top: 10px;
+padding-bottom: 10px;
+border-width: 0px;
+border-bottom-style: solid;
+border-bottom-color: black;
+background-color: transparent;
+}
+.navbar-brand {
+
+margin-right: 1%;
+margin-left: 1%;
+padding:0 10px;
+float: right;
+}
+.navbar-menu {
+height:50px;
+margin-bottom: 0px;
+float: left;
+padding:10px 0;
+margin-left:15px;
+}
+.navbar-toggle .icon-bar{
+
+background-color:#000000;
+}
+
+@media (max-width: 991px) {
+.navbar-brand {
+
+padding-top: 7px;
+padding-bottom: 7px;
+}
+.navbar-menubtn {
+
+float: left;
+}
+.navbar-img {
+
+width: 35px;
+height: 35px;
+}
+.messageDiv{
+    font-size:25px;
+    font-weight:100;
+}
+}
+
+@media (max-width: 767px) {
+.navbar-brand {
+
+padding-bottom: 10px;
+padding-left: 0px;
+}
+.navbar-container {
+
+padding-right: 10px;
+padding-left: 10px;
+}
+.navbar-menubtn {
+
+height: 50px;
+padding-top: 18px;
+}
+}
+@media (min-width: 480px){
+.navbar-toggle{
+display:none;
+}
+}
+@media (max-width: 479px) {
+nav.nav-menu{
+position:absolute;
+left:45px;
+padding-top:11px;
+}
+html *[data-as="navmenu"]{
+opacity:0;
+transition:opacity 0.5s ease-in-out;
+}
+html *[data-as="navmenu"].end{
+opacity:1;
+}
+img.navbar-toggle{
+cursor:pointer;
+float:left;
+margin:9px 0 0 9px;
+padding:0;
+}
+.nav-link{
+margin:0 5px;
+font-size:14px;
+}
+.navbar-brand{
+display:none;
+}
+.helpImg{
+    margin:25px 0;
+}
+.messageDiv{
+    font-size:18px;
+    font-weight:100;
+}
+.improveDiv{
+    margin:75px 0;
+}
+.helpInstruction{
+    font-size:18px;
+}
+}

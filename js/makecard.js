@@ -53,9 +53,12 @@ var downloadCanvasWidth;//要下載的圖片的寬，也是裝我們要下載的
 var filename;//下載檔名
 var downloadImg;//要下載的圖片
 
+var pressOrNot=false;
+var shapeClickProcess;
+var colorClickProcess;
 (function($){
     $.fn.showDialog=function(){
-        $('div.modal').attr('visibility','visible');
+        $('div.myDialogModal').css('visibility','visible');
         this.animate({
             top:50
         },{
@@ -66,6 +69,7 @@ var downloadImg;//要下載的圖片
         return this;
     };
     $.fn.hideDialog=function(){
+        $('div.myDialogModal').css('visibility','hidden');
         this.animate({
             top:-200
         },{
@@ -133,12 +137,28 @@ function initSetting(){//初始化所有特性和特性的設定器
     });
     //shapebtn
     $('#shape'+bubbleShape).addClass('active');
-    $('.shapeBtn').on('click',function(e){
-        $('#shape'+bubbleShape).removeClass('active');
-        bubbleShape=Number($(this).prop('id').substr(5,1));
-        $('#shape'+bubbleShape).addClass('active');
-        updateWord();
+    $('.shapeBtn').on('mousedown',function(e){
+        pressOrNot=false;
+        var self=$(this);
+        clearTimeout(shapeClickProcess);
+        shapeClickProcess=setTimeout(function(){
+            if(!pressOrNot){
+                mobileSelectEraserShape(self);
+            }
+            else
+            pressOrNot=false;
+        },1000);
     });
+    $('.shapeBtn').on('mouseup',function(e){
+        if(!pressOrNot){
+            pressOrNot=true;
+            $('#shape'+bubbleShape).removeClass('active');
+            bubbleShape=Number($(this).prop('id').substr(5,1));
+            $('#shape'+bubbleShape).addClass('active');
+            updateWord();
+        }
+    });
+
     $('.shapeBtn').attr('draggable',true);
 
     //dotWord
@@ -179,14 +199,6 @@ function initSetting(){//初始化所有特性和特性的設定器
         $(this).toggleClass('active');
         eraseOrNot=!eraseOrNot;
     });
-    $('.eraserTap').on('tap',function(e){
-        $('#myCanvas').toggleClass('active');
-        //$('#subNavBar').toggleClass('cannotSlideDown');//必免navbar把canvas遮住，造成橡皮擦不能滑到最上面
-        $(this).toggleClass('active');
-        eraseOrNot=!eraseOrNot;
-
-    });
-
     //edit
     $('#edit1').on('click',function(){
         var dialog=$('#myResetDialog');
@@ -263,19 +275,37 @@ function initSetting(){//初始化所有特性和特性的設定器
     });
 
     $('#edit5').on('click',function(){
-
+        location.replace()
+    });
+    $('.colorList>span.color').on('mousedown',function(e){
+        pressOrNot=false;
+        var self=$(this);
+        clearTimeout(colorClickProcess);
+        colorClickProcess=setTimeout(function(){
+            if(!pressOrNot){
+                mobileSelectEraserColor(self);
+            }
+            else
+            pressOrNot=false;
+        },1000);
+    });
+    $('.colorList>span.color').on('mouseup',function(e){
+        if(!pressOrNot){
+            pressOrNot=true;
+            selectColor($(this));
+        }
     });
 }
 
-function selectColor(){//選色
+function selectColor(btn){//選色
     if(choosedColorNum==MAX_COLOR_NUM)
         return ;
-    $(this).clone()//設定一些event function
+    btn.clone()//設定一些event function
         .prop('id','color'+(++choosedColorNum))
         .appendTo($('#choosedColor'));
     updateChoosedColor();
 }
-$(document).on('click','div.colorList>span.color',selectColor);
+//$(document).on('click','div.colorList>span.color',selectColor);
 
 function deleteColor(){//刪除顏色
     if(choosedColorNum==1)
@@ -400,21 +430,18 @@ function dragEndFunc(event){
     if(dragObject==1)
         $('#colorBlock').remove();
 }
-function mobileSelectEraserColor(){
-    myEraser.color=$(this).attr('style').substring(18);
-    console.log(myEraser.color);
+function mobileSelectEraserColor(btn){
+    myEraser.color=btn.attr('style').substring(18);
     eraserContext.clearRect(0,0,eraserCanvas.width(),eraserCanvas.height());
     drawShape(eraserCanvas,myEraser.eraserShape,eraserCanvas.height()/2,eraserCanvas.height()/2,myEraser.radius*2,myEraser.color);
 }
-$(document).on('taphold','div.colorList>span.color',mobileSelectEraserColor);
-function mobileSelectEraserShape(){
-    console.log(this);
-    myEraser.eraserShape=Number($(this).prop('id').substr(5,1));
-    console.log(myEraser.shape);
+//$(document).on('taphold','div.colorList>span.color',mobileSelectEraserColor);
+function mobileSelectEraserShape(btn){
+    myEraser.eraserShape=Number(btn.prop('id').substr(5,1));
     eraserContext.clearRect(0,0,eraserCanvas.width(),eraserCanvas.height());
     drawShape(eraserCanvas,myEraser.eraserShape,eraserCanvas.height()/2,eraserCanvas.height()/2,myEraser.radius*2,myEraser.color);
 }
-$(document).on('taphold','h6.shapeBtn',mobileSelectEraserShape);
+//$(document).on('taphold','h6.shapeBtn',mobileSelectEraserShape);
 //更新選擇的顏色
 function updateChoosedColor(){
     colors.length=0;
@@ -434,7 +461,7 @@ function navbarSlideDown(){
         setTimeout(function(){
             $('#mainNavBar').animate({
                 opacity:1,
-                top:'0px'
+            top:'0px'
             },500);},0);
 }
 $(document).on('mouseover','#subNavBar',navbarSlideDown);
@@ -544,5 +571,7 @@ $(document).ready(function(){
     });
     $(window).resize(function(){
     });
-    initAll();
+    if('ontouchstart' in document)
+    $('body').removeClass('noTouch');
+initAll();
 });

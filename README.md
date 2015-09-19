@@ -12,6 +12,8 @@ Dottarry uses or adapts the following libraries and code:
  
   https://www.codecademy.com/courses/animate-your-name/0/1
 
+  I want to thank Codecademy.com since this website is build on the idea from their website. alphabet.js and some code in makecard.js is based on their work.
+ 
  - JQuery & Javascript
  
   http://jquery.com

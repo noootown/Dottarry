@@ -13,6 +13,12 @@ Dottarry uses or adapts the following libraries and code:
   https://www.codecademy.com/courses/animate-your-name/0/1
 
   I want to thank Codecademy.com since this website is build on the idea from their website. alphabet.js and some code in makecard.js is based on their work.
+  
+  Also, I also want to thank Google, Rob Hawkes, and Mark Brenig-Jones & Emile Petrone. This course was inspired by and built on their work.
+  
+  http://www.google.com/logos/particle.html
+  
+  https://github.com/robhawkes/google-bouncing-balls
  
  - JQuery & Javascript
  

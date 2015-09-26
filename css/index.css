@@ -22,6 +22,7 @@ max-width: 100%;
 text-align: left;
 }
 body {
+overflow-x:hidden;
 overflow-y: visible;
 width: 100%;
 margin-top: 0px;
@@ -47,8 +48,6 @@ font-size:15px;
 text-decoration:none;
 }
 .unitsection {
-
-overflow-x:hidden;
 width: 100%;
 height: auto;
 margin-top: 0px;
